@@ -39,7 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Util/make_unique.hpp"
 #include "../Util/simple_logger.hpp"
 #include "../Descriptors/ProtoBufDescriptor.h"
-#include "../Util/SimpleLogger.h"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
 
