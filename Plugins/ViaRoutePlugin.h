@@ -36,11 +36,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Descriptors/BaseDescriptor.h"
 #include "../Descriptors/GPXDescriptor.h"
 #include "../Descriptors/JSONDescriptor.h"
+#include "../Descriptors/protobuf_descriptor.hpp"
 #include "../Util/make_unique.hpp"
 #include "../Util/simple_logger.hpp"
-#include "../Descriptors/ProtoBufDescriptor.h"
-#include "../Util/StringUtil.h"
-#include "../Util/TimingUtil.h"
 
 #include <cstdlib>
 
@@ -64,8 +62,8 @@ template <class DataFacadeT> class ViaRoutePlugin final : public BasePlugin
 
         descriptor_table.emplace("json", 0);
         descriptor_table.emplace("gpx", 1);
-        // descriptor_table.emplace("geojson", 2);
-        descriptor_table.emplace("pb", 3);
+        descriptor_table.emplace("pb", 2);
+        // descriptor_table.emplace("geojson", 3);
     }
 
     virtual ~ViaRoutePlugin() {}
@@ -130,12 +128,12 @@ template <class DataFacadeT> class ViaRoutePlugin final : public BasePlugin
         case 1:
             descriptor = osrm::make_unique<GPXDescriptor<DataFacadeT>>(facade);
             break;
-        // case 2:
+        case 2:
+            descriptor = osrm::make_unique<PBFDescriptor<DataFacadeT>>(facade);
+            break;
+        // case 3:
         //      descriptor = osrm::make_unique<GEOJSONDescriptor<DataFacadeT>>();
         //      break;
-        case 3:
-            descriptor = std::make_shared<PBFDescriptor<DataFacadeT>>(facade);
-            break;
         default:
             descriptor = osrm::make_unique<JSONDescriptor<DataFacadeT>>(facade);
             break;

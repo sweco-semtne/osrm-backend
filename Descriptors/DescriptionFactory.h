@@ -220,4 +220,15 @@ class DescriptionFactory
     }
 };
 
+#endif /* DESCRIPTIONFACTORY_H_ */         path_description[i + 1].location.GetBearing(path_description[i].location);
+                path_description[i].bearing = static_cast<unsigned>(angle * 10);
+            }
+        }
+        via_indices.push_back(necessary_pieces + 1);
+        BOOST_ASSERT(via_indices.size() >= 2);
+        // BOOST_ASSERT(0 != necessary_pieces || path_description.empty());
+        return;
+    }
+};
+
 #endif /* DESCRIPTIONFACTORY_H_ */
