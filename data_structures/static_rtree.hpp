@@ -794,7 +794,7 @@ class StaticRTree
                 {
                     // store phantom node in result vector
                     result_phantom_node_vector.emplace_back(
-                        current_segment.forward_edge_based_node_id,
+                         current_segment.forward_edge_based_node_id,
                          current_segment.reverse_edge_based_node_id,
                          current_segment.name_id,
                          current_segment.forward_weight,
@@ -890,7 +890,7 @@ class StaticRTree
                 continue;
             }
 
-            if (current_query_node.RepresentsTreeNode())
+            if (current_query_node.node.template is<TreeNode>())
             {
                 const TreeNode & current_tree_node = current_query_node.node.template get<TreeNode>();
                 if (current_tree_node.child_is_on_disk)
@@ -973,6 +973,7 @@ class StaticRTree
                 {
                     // store phantom node in result vector
                     result_phantom_node_vector.emplace_back(
+                        std::make_pair(PhantomNode{
                         current_segment.forward_edge_based_node_id,
                         current_segment.reverse_edge_based_node_id,
                         current_segment.name_id,
@@ -983,14 +984,16 @@ class StaticRTree
                         current_segment.packed_geometry_id,
                         foot_point_coordinate_on_segment,
                         current_segment.fwd_segment_position,
-                        current_perpendicular_distance);
+                        current_segment.forward_travel_mode,
+                        current_segment.backward_travel_mode},
+                        current_perpendicular_distance));
 
                     // Hack to fix rounding errors and wandering via nodes.
-                    FixUpRoundingIssue(input_coordinate, result_phantom_node_vector.back());
+                    FixUpRoundingIssue(input_coordinate, result_phantom_node_vector.back().first);
 
                     // set forward and reverse weights on the phantom node
                     SetForwardAndReverseWeightsOnPhantomNode(current_segment,
-                                                             result_phantom_node_vector.back());
+                                                             result_phantom_node_vector.back().first);
 
                     // do we have results only in a small scc
                     if (current_segment.is_in_tiny_cc)
@@ -1139,7 +1142,7 @@ class StaticRTree
     }
 
     // fixup locations if too close to inputs
-    inline void FixUpRoundingIssue(const FixedPointCoordinate &input_coordinate,
+    void FixUpRoundingIssue(const FixedPointCoordinate &input_coordinate,
                                   PhantomNode &result_phantom_node) const
     {
             if (1 == std::abs(input_coordinate.lon - result_phantom_node.location.lon))

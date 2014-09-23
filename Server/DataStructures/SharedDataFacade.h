@@ -384,24 +384,6 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
 
     bool
     IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
-                                            PhantomNode &resulting_phantom_node,
-                                            const unsigned zoom_level) final
-    {
-        std::vector<PhantomNode> resulting_phantom_node_vector;
-        auto result = IncrementalFindPhantomNodeForCoordinate(input_coordinate,
-                                                              resulting_phantom_node_vector,
-                                                              zoom_level,
-                                                              1);
-        if (result)
-        {
-            BOOST_ASSERT(!resulting_phantom_node_vector.empty());
-            resulting_phantom_node = resulting_phantom_node_vector.front();
-        }
-        return result;
-    }
-
-    bool
-    IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                             std::vector<PhantomNode> &resulting_phantom_node_vector,
                                             const unsigned zoom_level,
                                             const unsigned number_of_results) final
@@ -412,6 +394,21 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
         }
 
         return m_static_rtree->second->IncrementalFindPhantomNodeForCoordinate(
+            input_coordinate, resulting_phantom_node_vector, zoom_level, number_of_results);
+    }
+
+    bool
+    IncrementalFindPhantomNodeForCoordinateWithDistance(const FixedPointCoordinate &input_coordinate,
+                                                        std::vector<std::pair<PhantomNode, double>> &resulting_phantom_node_vector,
+                                                        const unsigned zoom_level,
+                                                        const unsigned number_of_results) final
+    {
+        if (!m_static_rtree.get())
+        {
+            LoadRTree();
+        }
+
+        return m_static_rtree->IncrementalFindPhantomNodeForCoordinateWithDistance(
             input_coordinate, resulting_phantom_node_vector, zoom_level, number_of_results);
     }
 

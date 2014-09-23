@@ -109,9 +109,10 @@ template <class EdgeDataT> class BaseDataFacade
                                             const unsigned number_of_results) = 0;
 
     virtual bool
-    IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
-                                            PhantomNode &resulting_phantom_node,
-                                            const unsigned zoom_leve) = 0;
+    IncrementalFindPhantomNodeForCoordinateWithDistance(const FixedPointCoordinate &input_coordinate,
+                                                        std::vector<std::pair<PhantomNode, double>> &resulting_phantom_node_vector,
+                                                        const unsigned zoom_level,
+                                                        const unsigned number_of_results) = 0;
 
     virtual unsigned GetCheckSum() const = 0;
 
