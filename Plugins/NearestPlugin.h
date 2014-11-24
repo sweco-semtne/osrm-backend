@@ -29,10 +29,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NEAREST_PLUGIN_H
 
 #include "BasePlugin.h"
-#include "../DataStructures/JSONContainer.h"
 #include "../DataStructures/phantom_node.hpp"
 #include "../DataStructures/Range.h"
 #include "../Util/json_renderer.hpp"
+
+#include <osrm/json_container.hpp>
 
 #include <string>
 

@@ -30,14 +30,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../Algorithms/douglas_peucker.hpp"
 #include "../DataStructures/phantom_node.hpp"
-#include "../DataStructures/JSONContainer.h"
 #include "../DataStructures/SegmentInformation.h"
 #include "../DataStructures/TurnInstructions.h"
 #include "../typedefs.h"
 
 #include <boost/assert.hpp>
 
-#include <osrm/Coordinate.h>
+#include <osrm/coordinate.hpp>
+#include <osrm/json_container.hpp>
 
 #include <cmath>
 

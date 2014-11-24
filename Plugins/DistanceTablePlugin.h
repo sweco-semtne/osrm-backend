@@ -31,7 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "BasePlugin.h"
 
 #include "../Algorithms/object_encoder.hpp"
-#include "../DataStructures/JSONContainer.h"
 #include "../DataStructures/QueryEdge.h"
 #include "../DataStructures/SearchEngine.h"
 #include "../Descriptors/BaseDescriptor.h"
@@ -39,6 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Util/make_unique.hpp"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
+
+#include <osrm/json_container.hpp>
 
 #include <cstdlib>
 

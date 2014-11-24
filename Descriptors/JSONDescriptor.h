@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "DescriptionFactory.h"
 #include "../Algorithms/object_encoder.hpp"
 #include "../Algorithms/route_name_extraction.hpp"
-#include "../DataStructures/JSONContainer.h"
 #include "../DataStructures/Range.h"
 #include "../DataStructures/SegmentInformation.h"
 #include "../DataStructures/TurnInstructions.h"
@@ -41,6 +40,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Util/simple_logger.hpp"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
+
+#include <osrm/json_container.hpp>
 
 #include <algorithm>
 

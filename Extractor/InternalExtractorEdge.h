@@ -30,9 +30,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../typedefs.h"
 #include "../DataStructures/TravelMode.h"
-#include <osrm/Coordinate.h>
 
 #include <boost/assert.hpp>
+
+#include <osrm/coordinate.hpp>
 
 struct InternalExtractorEdge
 {

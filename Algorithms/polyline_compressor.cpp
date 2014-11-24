@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyline_compressor.hpp"
 #include "../DataStructures/SegmentInformation.h"
 
-#include <osrm/Coordinate.h>
+#include <osrm/coordinate.hpp>
 
 std::string PolylineCompressor::encode_vector(std::vector<int> &numbers) const
 {

@@ -1,10 +1,11 @@
 #include "../../Algorithms/douglas_peucker.hpp"
 #include "../../DataStructures/SegmentInformation.h"
-#include "../../Include/osrm/Coordinate.h"
 
 #include <boost/test/unit_test.hpp>
 #include <boost/test/test_case_template.hpp>
 #include <boost/mpl/list.hpp>
+
+#include <osrm/coordinate.hpp>
 
 #include <iostream>
 

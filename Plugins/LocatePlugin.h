@@ -29,9 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOCATE_PLUGIN_H
 
 #include "BasePlugin.h"
-#include "../DataStructures/JSONContainer.h"
 #include "../Util/json_renderer.hpp"
 #include "../Util/StringUtil.h"
+
+#include <osrm/json_container.hpp>
 
 #include <string>
 

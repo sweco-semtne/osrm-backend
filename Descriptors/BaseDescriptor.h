@@ -30,14 +30,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../DataStructures/phantom_node.hpp"
 #include "../DataStructures/RawRouteData.h"
+//TODO: remove
+#include "../Server/Http/Reply.h"
 #include "../typedefs.h"
-
-#include <osrm/Reply.h>
 
 #include <string>
 #include <unordered_map>
 #include <vector>
-
 
 struct DescriptorTable : public std::unordered_map<std::string, unsigned>
 {

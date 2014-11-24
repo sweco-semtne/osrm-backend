@@ -4,9 +4,9 @@
 #include "../DataStructures/TravelMode.h"
 #include "../typedefs.h"
 
-#include <osrm/Coordinate.h>
-
 #include <boost/assert.hpp>
+
+#include <osrm/coordinate.hpp>
 
 #include <limits>
 
