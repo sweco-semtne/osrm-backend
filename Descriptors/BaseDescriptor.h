@@ -30,9 +30,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../DataStructures/phantom_node.hpp"
 #include "../DataStructures/RawRouteData.h"
-//TODO: remove
-#include "../Server/Http/Reply.h"
 #include "../typedefs.h"
+
+#include <osrm/json_container.hpp>
 
 #include <string>
 #include <unordered_map>
@@ -75,8 +75,8 @@ template <class DataFacadeT> class BaseDescriptor
     BaseDescriptor() {}
     // Maybe someone can explain the pure virtual destructor thing to me (dennis)
     virtual ~BaseDescriptor() {}
-    virtual void Run(const RawRouteData &raw_route, http::Reply &reply) = 0;
-    virtual void SetConfig(const DescriptorConfig &config) = 0;
+    virtual void Run(const RawRouteData &, JSON::Object &) = 0;
+    virtual void SetConfig(const DescriptorConfig &) = 0;
 };
 
 #endif // BASE_DESCRIPTOR_H

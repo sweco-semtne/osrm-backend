@@ -41,8 +41,6 @@ namespace boost { namespace interprocess { class named_mutex; } }
 #include "../Server/DataStructures/InternalDataFacade.h"
 #include "../Server/DataStructures/SharedBarriers.h"
 #include "../Server/DataStructures/SharedDataFacade.h"
-//TODO: remove
-#include "../Server/Http/Reply.h"
 #include "../Util/make_unique.hpp"
 #include "../Util/ProgramOptions.h"
 #include "../Util/simple_logger.hpp"
@@ -101,13 +99,12 @@ void OSRM_impl::RegisterPlugin(BasePlugin *plugin)
     plugin_map.emplace(plugin->GetDescriptor(), plugin);
 }
 
-void OSRM_impl::RunQuery(RouteParameters &route_parameters, http::Reply &reply)
+int OSRM_impl::RunQuery(RouteParameters &route_parameters, JSON::Object &json_result)
 {
     const PluginMap::const_iterator &iter = plugin_map.find(route_parameters.service);
 
     if (plugin_map.end() != iter)
     {
-        reply.status = http::Reply::ok;
         if (barrier)
         {
             // lock update pending
@@ -128,7 +125,7 @@ void OSRM_impl::RunQuery(RouteParameters &route_parameters, http::Reply &reply)
                 ->CheckAndReloadFacade();
         }
 
-        iter->second->HandleRequest(route_parameters, reply);
+        iter->second->HandleRequest(route_parameters, json_result);
         if (barrier)
         {
             // lock query
@@ -145,10 +142,11 @@ void OSRM_impl::RunQuery(RouteParameters &route_parameters, http::Reply &reply)
                 barrier->no_running_queries_condition.notify_all();
             }
         }
+        return 200;
     }
     else
     {
-        reply = http::Reply::StockReply(http::Reply::badRequest);
+        return 400;
     }
 }
 
@@ -161,7 +159,7 @@ OSRM::OSRM(ServerPaths paths, const bool use_shared_memory)
 
 OSRM::~OSRM() { OSRM_pimpl_.reset(); }
 
-void OSRM::RunQuery(RouteParameters &route_parameters, http::Reply &reply)
+int OSRM::RunQuery(RouteParameters &route_parameters, JSON::Object &json_result)
 {
-    OSRM_pimpl_->RunQuery(route_parameters, reply);
+    return OSRM_pimpl_->RunQuery(route_parameters, json_result);
 }
