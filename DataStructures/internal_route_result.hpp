@@ -63,7 +63,7 @@ struct PathData
     TravelMode travel_mode : 4;
 };
 
-struct RawRouteData
+struct InternalRouteResult
 {
     std::vector<std::vector<PathData>> unpacked_path_segments;
     std::vector<PathData> unpacked_alternative;
@@ -80,7 +80,7 @@ struct RawRouteData
         return (leg != unpacked_path_segments.size() - 1);
     }
 
-    RawRouteData() :
+    InternalRouteResult() :
           shortest_path_length(INVALID_EDGE_WEIGHT),
           alternative_path_length(INVALID_EDGE_WEIGHT)
     {

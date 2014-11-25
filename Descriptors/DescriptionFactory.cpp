@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../typedefs.h"
 #include "../Algorithms/polyline_formatter.hpp"
-#include "../DataStructures/RawRouteData.h"
+#include "../DataStructures/internal_route_result.hpp"
 #include "../DataStructures/SegmentInformation.h"
 #include "../DataStructures/TurnInstructions.h"
 

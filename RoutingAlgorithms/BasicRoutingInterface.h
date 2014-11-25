@@ -28,10 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef BASIC_ROUTING_INTERFACE_H
 #define BASIC_ROUTING_INTERFACE_H
 
-#include "../DataStructures/RawRouteData.h"
+#include "../DataStructures/internal_route_result.hpp"
 #include "../DataStructures/SearchEngineData.h"
 #include "../DataStructures/TurnInstructions.h"
-// #include "../Util/simple_logger.hpp.h"
 
 #include <boost/assert.hpp>
 
