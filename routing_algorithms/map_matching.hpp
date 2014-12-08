@@ -234,7 +234,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
                       {
             SimpleLogger().Write() << "computing " << first_list.size() << "x" << second_list.size()
                                    << "=" << first_list.size() * second_list.size()
-                                   << " paths for segment " << current_segment;
+                                   << " paths for segment " << (++current_segment);
         });
 
         SimpleLogger().Write() << "state_size: " << state_size;
@@ -244,7 +244,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
         std::vector<std::vector<std::size_t>> parent(
             state_size, std::vector<std::size_t>(timestamp_list.size() + 1, 0));
 
-        SimpleLogger().Write() << "a";
+        SimpleLogger().Write() << "initializing state probabilties: ";
 
         for (auto s = 0; s < state_size; ++s)
         {
@@ -259,7 +259,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
             viterbi[s][0] = emission_pr;
             parent[s][0] = s;
         }
-        SimpleLogger().Write() << "b";
+        SimpleLogger().Write() << "running viterbi algorithm: ";
 
         // attention, this call is relatively expensive
         const auto beta = get_beta(state_size, timestamp_list, coordinate_list);
@@ -291,7 +291,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
                 }
             }
         }
-        SimpleLogger().Write() << "c";
+        SimpleLogger().Write() << "Determining most plausible end state";
         SimpleLogger().Write() << "timestamps: " << timestamp_list.size();
         const auto number_of_timestamps = timestamp_list.size();
         const auto max_element_iter = std::max_element(viterbi[number_of_timestamps].begin(),
@@ -299,8 +299,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
         auto parent_index = std::distance(max_element_iter, viterbi[number_of_timestamps].begin());
         std::deque<std::size_t> reconstructed_indices;
 
-        SimpleLogger().Write() << "d";
-
+        SimpleLogger().Write() << "Backtracking to find most plausible state sequence";
         for (auto i = number_of_timestamps - 1; i > 0; --i)
         {
             SimpleLogger().Write() << "[" << i << "] parent: " << parent_index ;
@@ -310,7 +309,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
         SimpleLogger().Write() << "[0] parent: " << parent_index;
         reconstructed_indices.push_front(parent_index);
 
-        SimpleLogger().Write() << "e";
+        SimpleLogger().Write() << "Computing most plausible sequence of phantom nodes";
 
         for (auto i = 0; i < reconstructed_indices.size(); ++i)
         {
@@ -318,7 +317,7 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
             SimpleLogger().Write() << std::setprecision(8) << "location " << coordinate_list[i] << " to " << timestamp_list[i][location_index].first.location;
         }
 
-        SimpleLogger().Write() << "f, done";
+        SimpleLogger().Write() << "done";
     }
 };
 
