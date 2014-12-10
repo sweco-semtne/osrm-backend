@@ -408,7 +408,7 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
             LoadRTree();
         }
 
-        return m_static_rtree->IncrementalFindPhantomNodeForCoordinateWithDistance(
+        return m_static_rtree->second->IncrementalFindPhantomNodeForCoordinateWithDistance(
             input_coordinate, resulting_phantom_node_vector, zoom_level, number_of_results);
     }
 

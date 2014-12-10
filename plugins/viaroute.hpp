@@ -92,9 +92,9 @@ template <class DataFacadeT> class ViaRoutePlugin final : public BasePlugin
                     continue;
                 }
             }
-            facade->IncrementalFindPhantomNodeForCoordinate(route_parameters.coordinates[i],
-                                                            phantom_node_vector[i],
-                                                            route_parameters.zoom_level);
+            facade->FindPhantomNodeForCoordinate(route_parameters.coordinates[i],
+                                                 phantom_node_vector[i],
+                                                 route_parameters.zoom_level);
         }
 
         RawRouteData raw_route;

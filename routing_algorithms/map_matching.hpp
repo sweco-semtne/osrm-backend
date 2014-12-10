@@ -227,18 +227,6 @@ template <class DataFacadeT> class MapMatching final : public BasicRoutingInterf
         BOOST_ASSERT(state_size != 0);
         SimpleLogger().Write() << "matching starts with " << timestamp_list.size() << " locations";
 
-        unsigned current_segment = 0;
-        // TODO: remove for_each_pair
-        for_each_pair(timestamp_list.cbegin(),
-                      timestamp_list.cend(),
-                      [&current_segment](const Matching::CandidateList &first_list,
-                                         const Matching::CandidateList &second_list)
-                      {
-            SimpleLogger().Write() << "computing " << first_list.size() << "x" << second_list.size()
-                                   << "=" << first_list.size() * second_list.size()
-                                   << " paths for segment " << (++current_segment);
-        });
-
         SimpleLogger().Write() << "state_size: " << state_size;
 
         std::vector<std::vector<double>> viterbi(state_size,
